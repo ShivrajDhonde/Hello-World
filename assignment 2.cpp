@@ -1,40 +1,38 @@
-/* Q. Given an array of integers where each element represents the max number of steps that can be made forward 
-      from that element.Write a function to return the minimum number of jumps to reach the end of the array
-      (starting from the first element).If an element is 0, then cannot move through that element. */
-
 # include <stdio.h>
+# include <math.h>
+int jump(int arr[],int n);
 int min(int a,int b)
 {
 	if(a>b)
 	return b;
-	else
+	else 
 	return a;
 }
 main()
 {
-	int n,count=0,i=0;
-	printf("Enter the size of the array\n");
-	scan("%d",&n);
+	printf("Enter size of array: \n");
+	int n;
+	scanf("%d",&n);
 	int arr[n];
-	printf("Enter the digits of the array\n");
+	printf("Enter the digits of the array: \n");
 	for(int i=0;i<n;i++)
 	{
 		scanf("%d",&arr[i]);
 	}
-	while(i<n)
-	{   
-		count+=arr[i];
-		while(count!=n-1)
-		{			
-			if(arr[count]==0)
-		    {
-			    printf("Not Possible\n");
-                break;
-		    }
-		
-		
-		
-		i++;
-		
+	int min_jump[n] = {INFINITY};
+	min_jump[0] = 0;
+	
+	for(int i=1;i<n;i++)
+	{
+		for(int j=0;j<i;j++)
+		{
+			if(i<=j+arr[j])
+			{
+				min_jump[i] = min(min_jump[i],min_jump[j]+1);
+			}
+		}
 	}
+	printf("\nMinimum number of steps required are %d ",min_jump[n]);
 }
+
+
